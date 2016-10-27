@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% block content %}	
+
+
+
+<h2> Check out which countries share similarity in terms of their average income per person and depth of food deficit </h2>
+
+
+<div id="thisplot">
+<svg width="750" height="500"
+  viewBox="0 0 745 500"
+  preserveAspectRatio="xMidYMid meet">
+</svg>
+</div>
+<div>
+<script>
+/* load data */
+d3.csv("{{ url_for('static', filename='data/Data.csv')}}", function(error, csv_data){
+	console.log(csv_data)
+		var nested_data = d3.nest()
+			.key(function(d) { return d.group;; })
+			.entries(csv_data);
+	
+nv.addGraph(function() {
+	var chart = nv.models.scatterChart()
+                .showDistX(true) 
+                .showDistY(true)
+		.forceX([0, 600])
+		.forceY([0,50000])
+		.useVoronoi(true)
+		.duration(5500).width(700).height(500)
+	        .color(d3.scale.category10().range());
+	//Axis settings
+	chart.yAxis.axisLabel('GNI per capita ($)').axisLabelDistance(10);
+	chart.xAxis.axisLabel('Depth of Food Deficit(Kilo Calories per person per day)').axisLabelDistance(1);
+	chart.xAxis.tickFormat(d3.format('2f'));
+	chart.yAxis.tickFormat(d3.format('2,0f'));
+	//circle size
+	chart.pointRange([190,191]);
+	// TOOLTIP
+	chart.tooltip.contentGenerator(function(graph) {
+		/* console.log(graph); //examine the graph object in the console for more info */
+		return graph.point.country;
+	});
+	/* B: */
+	/* http://stackoverflow.com/questions/21532228/how-to-create-a-tooltip-with-custom-value */
+	/* chart.tooltip.contentGenerator(function (d) {
+	   var ptIdx = d.pointIndex;
+	   var serIdx = d.seriesIndex;
+	   z = d.series[serIdx].values[ptIdx].country
+	   return z;
+	   }); */
+	chart.tooltip.duration(5100);
+	chart.tooltip.hideDelay(100);
+        
+	d3.select('#thisplot svg')
+		.datum(nested_data)
+		.transition().duration(200)
+		/* .attr("style", "outline: thin solid black;")  */
+		.call(chart);
+	nv.utils.windowResize(chart.update);
+	return chart;
+});
+});
+</script>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+    <p> Depth of food deficit is a measure of how many calories would be needed to lift the undernourished from their status, everything else being constant. GNI per capita is the measure of average income of a country's citizens. The above interactive visual is the result of Kmeans clustering, in which I have made an attempt to identify countries of the world that share similarity based on how rich they are and the level of their undernourishment.</p>
+  </div>
+
+
+<div class = "content" style="margin-top: 20px">
+    <p>The data for this graph is the subset of <a href ="http://data.worldbank.org/data-catalog/world-development-indicators">World Bank data</a> which includes the two indicators for GNI per capita(NY.GNP.PCAP.CD) and Depth of food deficit(SN.ITK.DFCT) for the year 2015.</p>
+ </div>
+
+ <div class = "content" style="margin-top: 20px">
+    <p>
+    Kmeans Clustering algorithm partitions the data into clusters and can be applied to relatively large datasets. Depending on the no. of clusters specified by the user, the algorithm partitions the data into spherical clusters by finding a set of cluster centers , assigning each observation to a cluster, determining new clusters and repeating this process.</p>
+  </div>
+<div class = "content" style="margin-top: 20px">
+   <p>
+    In the above results, the model was fitted into 7 clusters, maximum iteration value of 300, and no. of initializations as 10. The no. and method of initialization of the clusters greatly influences the final cluster solutions. Playing with several random initializations increases the probability of finding the optimal solution for a specified no. of clusters. The max iterations option is the measure of maximum no. of retries before the algorithm is aborted.
+   </p>
+ </div>
+<div class = "content" style="margin-top: 20px">
+    The model for this dataset generated 7 clusters with a silhoutte coefficient of 0.66. Silhoutte Coefficient is a metric to measure how well the observations are clustered with observations that are similar to themselves. A value of 1 is a perfect value and value of -1 is the worst value. In this particular data set, this value is 0.66, suggesting that we can further tune the model by playing with its initialization , and max iterations parameters.
+
+    Please find the code for the above analysis at <a href="/kmeanscode">KmeansClustering</a></p>
+
+ </div>
+
+<h2>How about the countries that are on the brink of their failure ?</h2>
+
+<div class = "content" style="margin-top: 20px">
+<p> Fragile State Index is an annual report published by United States <a href="https://en.wikipedia.org/wiki/Think_tank"> think tank </a>,<a href="https://en.wikipedia.org/wiki/Fund_for_Peace"> the Fund for peace </a> and the magzine <a href="https://en.wikipedia.org/wiki/Foreign_Policy"> Foreign Policy </a> since 2005. This report aims to assess states' vulnerability to conflict or collapse, ranking all the sovereign states with membership in the United Nations where there is enough data available. These scores are a way of assessing a state's vulnerability to collapse or conflict, ranking states on a spectrum of categories labeled 'sustainable','stable','warning' and 'alert' according to the brackets generated in 2016 <a href="https://en.wikipedia.org/wiki/Fragile_States_Index">Fragile State Index</a></p>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+
+<table>
+<caption style="font-weight:bold">FSI Score Breakdown</caption>
+<tr>
+    <th> Category </th>
+    <th> FSI Score </th>
+ 
+</tr>
+<tr>
+    <td> Alert </td>
+    <td> 90.0 - 120.0 </td>
+   
+</tr>
+
+<tr>
+    <td> Warning </td>
+    <td> 60.0 - 89.9 </td>
+   
+</tr>
+
+<tr>
+    <td> Stable </td>
+    <td> 30.0 - 59.9 </td>
+   
+</tr>
+
+<tr>
+    <td> Sustainable </td>
+    <td> 0.0 - 29.0 </td>
+   
+</tr>
+
+</table>
+
+</div>
+
+<div class = "content" style="margin-top: 20px">
+
+<p> In this section, I intend to present my implemention of regression modelling to predict Fragile State Index Score from a no. of feature combinations from World Development Indicators dataset. Some of the indicators that were used as features are related to female secondary education, mortality, newborns protected against tetanus, time to import, domestic credit etc.. The target values (FSI Scores) were obtained from 2016 <a href = "http://fsi.fundforpeace.org/">Twelfth annual Fragile States Index</a>
+</p>
+
+</div>
+<div class = "content" style="margin-top: 20px">
+<p> The following section shows the correlation plot of some of the indicators used as features.</p>
+</div>
+<div class="col-md-6">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Mortality.png')}}" alt="Graph">
+</div> 
+
+<div class="col-md-6">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Newborns.png')}}" alt="Graph">
+</div> 
+
+<div class="col-md-6">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Domestic_Credit.png')}}" alt="Graph" 
+            align ="center">
+</div> 
+
+<div class="col-md-6">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Time_to_Import.png')}}" alt="Graph">
+</div> 
+
+
+
+
+
+
+<div class = "content" style="margin-top: 20px">
+<p>I started my model with total 18 features. These features were scaled using MinMaxScaler from sklearn's preprocessing module and the model was built using both and Lasso and Ridge regression. The two types of regression differ in the manner they add penalty function . Lasso performs L1 regularization i.e adds penalty equivalent to absolute value of the magnitude of coefficients. On the other hand , Ridge performs L2 regularization i.e adds penalty equivalent to square of the magnitude of coefficients.</p>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+<p>I started with Lasso model,  and obtained the R-squared metric of 0.108 which was way too low and could not be tuned further.So, I switched to Ridge Regression and obtained the R-Squared metric of 0.418426. To further improve my model, I applied Recursive feature elimination in combination with Ridge Regression and managed to get the R-Squared value of 0.4915.</p>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+<p>The most important features contributing to the model are Domestic credit to private sector by banks (% of GDP), Time to import (days), Adjusted savings: education expenditure (% of GNI), Newborns protected against tetanus (%), and Maternal mortality ratio (modeled estimate, per 100,000 live births). This observation is based on the ranking generated by Recursive feature elimination() of sklearn's feature extraction module.
+</p>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+<p>The values predicted by the final model based on Ridge regression and recursive feature elimination are as follows.
+</div>
+
+<div class = "content" style="margin-top: 20px">
+
+
+<table>
+<caption style="font-weight:bold">FSI Score Predictions</caption>
+<tr>
+    <th> Country </th>
+    <th> Predicted Score </th>
+    <th> Actual Score </th>
+</tr>
+<tr>
+    <td>South Africa </td>
+    <td> 76.79 </td>
+    <td> 67.6 </td>
+</tr>
+<tr>
+    <td> Jamaica </td>
+    <td> 78.34 </td>
+    <td> 65.6 </td>
+</tr>
+
+<tr>
+    <td> Lesotho </td>
+    <td> 79.60 </td>
+    <td> 79.4 </td>
+</tr>
+
+<tr>
+    <td> Sierra Leone </td>
+    <td> 96.03 </td>
+    <td> 91.2 </td>
+</tr>
+
+<tr>
+    <td> Peru </td>
+    <td> 78.13 </td>
+    <td> 72.3 </td>
+</tr>
+
+<tr>
+    <td>Tanzania</td>
+    <td>83.71</td>
+    <td>81.1</td>
+</tr>
+
+<tr>
+    <td>Bhutan</td>
+    <td>83.08</td>
+    <td>81.8</td>
+</tr>
+
+<tr>
+    <td>Comoros</td>
+    <td>82.53</td>
+    <td>84.0</td>
+</tr>
+
+<tr>
+    <td>Burkina Faso</td>
+    <td>85.36</td>
+    <td>90.2</td>
+</tr>
+</table>
+
+
+
+</div>
+
+<div class = "content" style="margin-top: 20px">
+<p>Hence, according to the regression model Sierra Leone, officially the Republic of Sierra Leone, which is a country in West Africa falls in 'alert' category signifying that this country is at a high risk of collapse. The FSI scores of other Countries still fall in warning zone, and suggest that their economy is being pushed towards gradual decline.</p>
+</div>
+
+<div class = "content" style="margin-top: 20px">
+<p> Please find the code for the above analysis at <a href="/regressioncode">RegressionModelling</a></p>
+</div>
+
+{% endblock %}

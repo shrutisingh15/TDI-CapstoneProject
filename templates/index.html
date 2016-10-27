@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <div class="jumbotron" style="background-image: url(http://www.worldbank.org/content/dam/photos/780x439/2016/apr-4/780x439_wdi2016.jpg); background-size: cover; height: 700px">
+        
+      </div>  
+
+    <div class="container marketing">
+      <div class="row featurette" style="margin-top: 50px">
+        <div class="col-md-12">
+          <h2 class="featurette-heading" style="color:#191970">World development Indicators Exploration!</h2>
+          <p class="lead">World Development Indicators is an open dataset from World Bank. It is a collection of development indicators of the world from  1960 -2015 for 214 countries. It contains 330K records and covers diverse domains including Economy & Growth, Aid Effectiveness, External Debt, Science & Technology, Agriculture and many more… </p>
+        </div>
+       
+      </div>
+
+      
+      <div class="row featurette" style="margin-top: 50px">
+        <div class="col-md-7">
+          <h2 class="featurette-heading" style="color:#191970">How do you cluster countries?</h2>
+          <p class="lead">By implementing KMeans Clustering algorithm on GNI per capita Income and Depth of food deficit, we can pick the countries that fall into the same cluster.</p>
+		  <p class ="lead">Check out the implmentation of the algorithm<a href="/clustermap">NoteBook</a>
+		  
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Countries_Clustering.jpeg')}}" alt="Graph" style = "height:400px">
+        </div>
+         
+      </div>
+
+
+      <div class="row featurette" style="margin-top: 50px">
+        <div class="col-md-7">
+          <h2 class="featurette-heading" style="color:#191970">Curious about the data set?</h2>
+          <p class="lead"> Take a glimpse at the global income in equality as of 2015</p>
+		  <p class ="lead">The plot shows that, an average American makes more money than 90% of the world population. The 75th percentile value in the box plot is below 20000 USD. That means, even a poor American citizen with an annual income of 20000 USD still makes more than 75% of the world.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='PerCapitaDistribution_2015.png')}}" alt="Graph" style = "height:400px">
+        </div>
+      </div>              
+    </div>  
+{% endblock %}

@@ -1,0 +1,724 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}		
+
+<h2> Global Income Inequality </h2>
+
+
+  <div class = "content">
+  <p style = font-size:15px align="left"> The following section does the exploration of average income per person (measured in terms of GNI per capita income, Atlas method (current US$))of the rich, emerging and poor economies from 1960s until 2015. </p>
+  </div>
+
+<h4 align ="left"> Lowest income groups in 1962 and 2015 </h4>
+
+<div class = "col-md-12">
+          <div id='chart3'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart3 = nv.models.multiBarHorizontalChart()
+      
+      .x(function(d) { return d.label})    //Specify the data accessors.
+      .y(function(d) { return d.value})
+      .margin({top: 30, right: 20, bottom: 50, left: 175})
+      .showControls(false)
+      .width(600)
+      .height(500)
+      ;
+  
+
+  chart3.yAxis.axisLabel('Income ($)').axisLabelDistance(5);
+  //chart3.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart3 svg')
+      .datum(exampleData3())
+      .call(chart3)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("20 Countries with lowest GNI Per Capita Income in 1962");
+      ;
+  
+
+
+  nv.utils.windowResize(chart3.update);
+
+  return chart3;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData3() {
+ return  [ 
+    {
+      key: "Income in 1962",
+      values: [
+        { 
+          "label" : "Rwanda" ,
+          "value" : 40
+        } , 
+        { 
+          "label" : "Malawi" , 
+          "value" : 50
+        } , 
+        { 
+          "label" : "Nepal" , 
+          "value" : 50
+        } , 
+        { 
+          "label" : "China" , 
+          "value" : 70
+        } ,
+        {
+          "label" : "Botswana",
+          "value" : 70
+        },
+        {
+          "label" : "Burundi",
+          "value" :70
+        },
+
+        {
+          "label" : "Central African Republic",
+          "value" : 80
+        },
+        {
+          "label" : "Burkina Faso",
+          "value" : 80
+        },
+        {
+          "label" : "Togo",
+          "value" : 90
+        },
+        {
+          "label" : "Benin",
+          "value" : 90
+        },
+        {
+          "label" : "India",
+          "value" : 90
+        },
+        {
+          "label" : "Pakistan",
+          "value" : 90
+        },
+        {
+          "label" : "Kenya",
+          "value" : 100
+        },
+        {
+          "label" : "Nigeria",
+          "value" : 100
+        },
+        {
+          "label" : "Chad",
+          "value" : 110
+        },
+        {
+          "label" : "Thailand",
+          "value" : 110
+        },
+        {
+          "label" : "Korean Rep.",
+          "value" : 110
+        },
+        {
+          "label" : "Sudan",
+          "value" : 120
+        },
+        {
+          "label" : "Papua New Guinea",
+          "value" : 130
+        },
+        {
+          "label" : "Madagascar",
+          "value" : 130
+        }
+        
+      ]
+    }
+  ]
+
+}
+        </script>  
+</div>
+
+
+
+
+
+<div class = "col-md-12">
+          <div id='chart4'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart4 = nv.models.multiBarHorizontalChart()
+      
+      .x(function(d) { return d.label})    //Specify the data accessors.
+      .y(function(d) { return d.value})
+      .margin({top: 30, right: 20, bottom: 50, left: 175})
+      .showControls(false)
+      .width(600)
+      .height(500)
+      ;
+  
+
+  chart4.yAxis.axisLabel('Income ($)').axisLabelDistance(5);
+  //chart4.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart4 svg')
+      .datum(exampleData4())
+      .call(chart4)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("20 Countries with lowest GNI Per Capita Income in 2015");
+      ;
+  
+
+
+  nv.utils.windowResize(chart4.update);
+
+  return chart4;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData4() {
+ return  [ 
+    {
+      key: "Income in 2015",
+      values: [
+        { 
+          "label" : "Burundi" ,
+          "value" : 260
+        } , 
+        { 
+          "label" : "Central African Republic" , 
+          "value" : 320
+        } , 
+        { 
+          "label" : "Malawi" , 
+          "value" : 350
+        } , 
+        {
+          "label" : "Liberia",
+          "value" : 380
+        },
+
+        { 
+          "label" : "Niger" , 
+          "value" : 390
+        } ,
+        {
+          "label" : "Congo, Dem Rep",
+          "value" : 410
+        },
+        {
+          "label" : "Madagascar",
+          "value" : 420
+        },
+
+        {
+          "label" : "Guinea",
+          "value" : 470
+        },
+        {
+          "label" : "Togo",
+          "value" : 540
+        },
+        {
+          "label" : "Togo",
+          "value" : 90
+        },
+        {
+          "label" : "Mozambique",
+          "value" : 580
+        },
+        {
+          "label" : "Ethiopia",
+          "value" : 590
+        },
+        {
+          "label" : "Guinea-Bissau",
+          "value" : 590
+        },
+        {
+          "label" : "Afghanistan",
+          "value" : 630
+        },
+        {
+          "label" : "Sierra Leone",
+          "value" : 630
+        },
+        {
+          "label" : "Burkina Faso",
+          "value" : 660
+        },
+        {
+          "label" : "Uganda",
+          "value" : 670
+        },
+        {
+          "label" : "Rwanda",
+          "value" : 700
+        },
+        {
+          "label" : "Nepal",
+          "value" : 730
+        },
+        {
+          "label" : "South Sudan",
+          "value" : 790
+        },
+        {
+          "label" : "Mali",
+          "value" : 790
+        }
+        
+      ]
+    }
+  ]
+
+}
+        </script>  
+</div>
+
+<h4 align ="left">Which pockets of the world have consistently been on the lower income side ?</h4>
+
+<div class = "content">
+  <p style = font-size:16px align="left"> Rwanda, Malawi, Nepal, Burundi, Central African Republic, Burkina Faso, Togo, Madagascar have consistently been in low average income group. </p>
+  <p style = font-size:15px align="left">In 1962, 6 out 20 countries (India, China, Korean Rep, Nepal, Thailand, Pakistan) in lowest average income group were located in Asia. While in 2015 the only Asian country in lowest average income group happens to be Nepal.In 2015, most of the countries falling in this group are located in African continent and one in middle east.</p>
+  </div>
+
+
+<h4 align ="left"> What parts of the world were wealthy back in 1960s ?</h4>
+
+<div class = "col-md-12">
+          <div id='chart5'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart5 = nv.models.multiBarHorizontalChart()
+      
+      .x(function(d) { return d.label})    //Specify the data accessors.
+      .y(function(d) { return d.value})
+      .margin({top: 30, right: 20, bottom: 50, left: 175})
+      .showControls(false)
+      .width(600)
+      .height(500)
+      ;
+  
+
+  chart5.yAxis.axisLabel('Income ($)').axisLabelDistance(5);
+  //chart3.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart5 svg')
+      .datum(exampleData5())
+      .call(chart5)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("20 Countries with highest GNI Per Capita Income in 1962");
+      ;
+  
+
+
+  nv.utils.windowResize(chart5.update);
+
+  return chart5;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData5() {
+ return  [ 
+    {
+      key: "Income in 1962",
+      values: [
+        { 
+          "label" : "United States" ,
+          "value" : 3280
+        } , 
+        { 
+          "label" : "Canada" , 
+          "value" : 2340
+        } , 
+        { 
+          "label" : "Sweden" , 
+          "value" : 2310
+        } , 
+        { 
+          "label" : "Bermuda" , 
+          "value" : 2170
+        } ,
+        {
+          "label" : "Australia",
+          "value" : 1840
+        },
+        {
+          "label" : "Luxembourg",
+          "value" : 1630
+        },
+
+        {
+          "label" : "Norway",
+          "value" : 1610
+        },
+        {
+          "label" : "France",
+          "value" : 1560
+        },
+        {
+          "label" : "Bahamas",
+          "value" : 1550
+        },
+        {
+          "label" : "Iceland",
+          "value" : 1540
+        },
+        {
+          "label" : "Belgium",
+          "value" : 1450
+        },
+        {
+          "label" : "Israel",
+          "value" : 1420
+        },
+        {
+          "label" : "Finland",
+          "value" : 1370
+        },
+        {
+          "label" : "Netherlands",
+          "value" : 1220
+        },
+        {
+          "label" : "Austria",
+          "value" : 1060
+        },
+        {
+          "label" : "Venezuela, RB",
+          "value" : 1050
+        },
+        {
+          "label" : "Italy",
+          "value" : 960
+        },
+        {
+          "label" : "Puerto Rico",
+          "value" : 820
+        },
+        {
+          "label" : "Trinidad and Tobago",
+          "value" : 640
+        },
+        {
+          "label" : "Greece",
+          "value" : 630
+        }
+        
+      ]
+    }
+  ]
+
+}
+        </script>  
+</div>
+
+
+<h4 align ="left"> Did the wealthier nations kept getting rich ?? How about newer candidates now in 2015?</h4>
+
+<div class = "col-md-12">
+          <div id='chart6'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart6 = nv.models.multiBarHorizontalChart()
+      
+      .x(function(d) { return d.label})    //Specify the data accessors.
+      .y(function(d) { return d.value})
+      .margin({top: 30, right: 20, bottom: 50, left: 175})
+      .showControls(false)
+      .width(600)
+      .height(500)
+      ;
+  
+
+  chart6.yAxis.axisLabel('Income ($)').axisLabelDistance(5);
+  //chart3.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart6 svg')
+      .datum(exampleData6())
+      .call(chart6)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("20 Countries with highest GNI Per Capita Income in 2015");
+      ;
+  
+
+
+  nv.utils.windowResize(chart6.update);
+
+  return chart6;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData6() {
+ return  [ 
+    {
+      key: "Income in 2015",
+      values: [
+        { 
+          "label" : "Norway" ,
+          "value" : 93820
+        } , 
+        { 
+          "label" : "Qatar" , 
+          "value" : 85430
+        } , 
+        { 
+          "label" : "Switzerland" , 
+          "value" : 84180
+        } , 
+        { 
+          "label" : "Luxembourg" , 
+          "value" : 77000
+        } ,
+        {
+          "label" : "Australia",
+          "value" : 60070
+        },
+        {
+          "label" : "Denmark",
+          "value" : 58590
+        },
+
+        {
+          "label" : "Sweden",
+          "value" : 57810
+        },
+        {
+          "label" : "United States",
+          "value" : 54960
+        },
+        {
+          "label" : "Singapore",
+          "value" :  52090
+        },
+        {
+          "label" : "Iceland",
+          "value" : 49730
+        },
+        {
+          "label" : "Netherlands",
+          "value" : 48940
+        },
+        {
+          "label" : "Canada",
+          "value" : 47500
+        },
+        {
+          "label" : "Austria",
+          "value" : 47120
+        },
+        {
+          "label" : "Ireland",
+          "value" : 46680
+        },
+        {
+          "label" : "Finland",
+          "value" : 46360
+        },
+        {
+          "label" : "Germany",
+          "value" : 45790
+        },
+        {
+          "label" : "Belgium",
+          "value" : 44360
+        },
+        {
+          "label" : "United Kingdom",
+          "value" : 43340
+        },
+        {
+          "label" : "United Arab Emirates",
+          "value" : 43170
+        },
+        {
+          "label" : "Hong Kong",
+          "value" : 41000
+        }
+        
+      ]
+    }
+  ]
+
+}
+        </script>  
+</div>
+
+<div class = "content">
+  
+  <p style = font-size:15px align="left">The above graphs and give an interesting information about the rich pockets of the world specially the countries in Western Europe, Scandinavia and North America. These countries had rich economy back in 1960s and are still classified in higher income group in 2015. It shows they had wealth back then and during last 5 decades their wealth kept accumulating as the average income of their citizens kept rising. An important thing is to observe the appearance of newer higher income group countries Qatar, Singapore, Denmark in 2015.
+  Also, it can be duly noted that wealth kept amassing in the developed countries at a higher rate than others.</p>
+  </div>
+
+
+
+<h4 align ="left">Rich, emerging and under developed countries from 1962 to 2015</h4>
+<div class="col-md-12">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Growth_trend.png')}}" alt="Graph">
+
+            <div class = "content" style="margin-top: 20px">
+                 <p tyle = font-size:16px align="left">A key points to notice in the above graph is that the growth rate of income in rich countries is much higher than poor countries. The surge in norway's GNI per capita has been very steep after 2002. Also, the growth in poor countries is not steady unlike the richer ones.</p>
+            </div>
+</div>  
+
+
+
+<div class = "col-md-6" style="margin-top: 20px">
+		      <div id='chart1'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart1 = nv.models.discreteBarChart()
+      
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .width(350)
+      .height(500)
+      ;
+  
+
+  chart1.yAxis.axisLabel('Income ($)').axisLabelDistance(1);
+  chart1.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart1 svg')
+      .datum(exampleData1())
+      .call(chart1)
+      .append("text")
+      .attr("x", 200)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("GNI Per Capita Income in 1962");
+  
+
+
+  nv.utils.windowResize(chart1.update);
+
+  return chart1;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData1() {
+ return  [ 
+    {
+      key: "Cumulative Return",
+      values: [
+        { 
+          "label" : "Malawi" ,
+          "value" : 50
+        } , 
+        { 
+          "label" : "China" , 
+          "value" : 70
+        } , 
+        { 
+          "label" : "Luxembourg" , 
+          "value" : 1630
+        } , 
+        { 
+          "label" : "U.S.A" , 
+          "value" : 3280
+        } ,
+        {
+          "label" : "Norway",
+          "value" : 1610
+        }
+      ]
+    }
+  ]
+
+}
+</script>  
+</div>
+
+
+<div class = "col-md-6" style="margin-top: 20px">
+          <div id='chart2'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart2 = nv.models.discreteBarChart()
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .width(350)
+      .height(500)
+      
+      
+      ;
+
+  chart2.yAxis.axisLabel('Income ($)').axisLabelDistance(1);
+  chart2.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart2 svg')
+      .datum(exampleData2())
+      .call(chart2)
+      .append("text")
+      .attr("x", 200)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("GNI Per Capita Income in 2015");;
+  
+
+
+  nv.utils.windowResize(chart2.update);
+
+  return chart2;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData2() {
+ return  [ 
+    {
+      key: "Cumulative Return",
+      values: [
+        { 
+          "label" : "Malawi" ,
+          "value" : 350
+        } , 
+        { 
+          "label" : "China" , 
+          "value" : 7820
+        } , 
+        { 
+          "label" : "Luxembourg" , 
+          "value" : 77000
+        } , 
+        { 
+          "label" : "U.S.A" , 
+          "value" : 54960
+        } ,
+        {
+          "label" : "Norway",
+          "value" : 93820
+        }
+      ]
+    }
+  ]
+
+}
+</script>  
+</div>
+
+ <div class = "content" style="margin-top: 20px">
+                 <p tyle = font-size:16px align="left">Back in 1962, average annual income of Malawi & China were extremely low when compared to United States, Luxembourg, and Norway.The annual average income of a Malawian citizen was only 50 USD which is about 1/6th of a US citizen's income of 3280 USD.
+                 It is also worth noticing the value for Malawi in 2015(350) which is still way too less than the average yearly income of a US citizen in 1962. Looks like wealthier nations had a higher leg up than the poor ones...
+                 As a matter fact, there is still a considerable difference between the income of several poor countries in 2015 and income of richer countries back in 1962.This leads a conclusion that higher income groups(richer nations) are growing at a faster rate than lower income groups(poorer nations).</p>
+</div>
+	  
+{% endblock %}

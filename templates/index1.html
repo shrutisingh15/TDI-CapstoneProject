@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+   <div class = "jumbotron">     
+   <h1> Are you curious about world economy ranking? </h1>
+   <p> Gain some insights on global economic inequality and find out the countries that are on the brink of the collapse</p>
+    <a href="{{ url_for('com') }}"><button type="button" class="btn btn-lg btn-primary">High Risk States</button></a>
+    <a href="{{ url_for('violin') }}"><button type="button" class="btn btn-lg btn-default">Economic Trend</button></a>
+    
+   </div>
+
+
+   <div id = "details" >
+         <p> The open dataset <a href = "http://data.worldbank.org/data-catalog/world-development-indicators">World Development Indicators</a> which is a collection of development indicators of the world, is made public by the World Bank to encourage reuse. This data ranges from 1960 - 2015 across 214 economies and covers a diverse range of indicators from various domains including Economy & Growth, Agriculture, Health, Education, Poverty etc, and presents the most recent and global development estimates.</p>
+    </div>
+
+{% endblock %}

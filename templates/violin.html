@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block content %}		
+  <div class="container marketing">
+	  <div class="row featurette" style="margin-top: 60px">
+	    <div class="col-md-12">
+	      <h2 class="featurette-heading" style="color:#191970" align="center">Data Exploration of Income Growth</h2>
+	      <p class="lead" align="center"> The following graph shows the comparison of growth rate of rich, emerging and poor economies from 1962 to 2015.</p>
+		  <p class="lead" align="center"> The growth rate of income in rich countries is much higher than poor countries. The surge in norway's GNI per capita has been very steep after 2002. Also, the growth in poor countries is not steady unlike the richer ones.</p>
+          <div class="col-md-12">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Growth_trend.png')}}" alt="Graph">
+          </div>		  
+        
+       	</div>
+		
+		<div class="row featurette" style="margin-top: 50px">
+        <div class="col-md-12">
+          <h2 class="featurette-heading" style="color:#191970">Zooming out the growth rate, lets look at the following graph...</h2>
+          <p class="lead" align ="center">Back in 1962, average annual income of Malawi & China were extremely low when compared to United States,  Luxembourg, and Norway.The annual average income of a Malawian citizen was only 50 USD which is about 1/6th of a US citizen's income of 3280 USD.
+                      It is also worth noticing the value for Malawi in 2015(350) which is still way too less than the average yearly income of a US citizen in 1962. Looks like wealthier nations had a higher leg up than the poor ones...
+As a matter fact, there is still a considerable difference between the income of several poor countries in 2015 and income of richer countries back in 1962.This leads a conclusion that higher income groups(richer nations) are growing at a faster rate than lower income groups(poorer nations).
+		  </p>
+		  
+		  
+        </div>
+        <div class="col-md-12">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static', filename='Growth_comparison.png')}}" alt="Graph">
+        </div>
+    </div>
+    <div class="row featurette" style="margin-top: 60px">
+		<div class = "col-md-6">
+		      <div id='chart1'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart1 = nv.models.discreteBarChart()
+      
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .width(500)
+      .height(500)
+      ;
+  
+
+  chart1.yAxis.axisLabel('Income ($)').axisLabelDistance(1);
+  chart1.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart1 svg')
+      .datum(exampleData())
+      .call(chart1)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("GNI Per Capita Income in 1962");
+  
+
+
+  nv.utils.windowResize(chart1.update);
+
+  return chart1;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData() {
+ return  [ 
+    {
+      key: "Cumulative Return",
+      values: [
+        { 
+          "label" : "Malawi" ,
+          "value" : 50
+        } , 
+        { 
+          "label" : "China" , 
+          "value" : 70
+        } , 
+        { 
+          "label" : "Luxembourg" , 
+          "value" : 1630
+        } , 
+        { 
+          "label" : "United States" , 
+          "value" : 3280
+        } ,
+        {
+          "label" : "Norway",
+          "value" : 1610
+        }
+      ]
+    }
+  ]
+
+}
+        </script>  
+        </div>
+
+
+        <div class = "col-md-6">
+          <div id='chart2'>
+              <svg style='height:500px'> </svg>
+          </div>
+          <script> nv.addGraph(function() {
+  var chart2 = nv.models.discreteBarChart()
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .width(500)
+      .height(500)
+      
+      
+      ;
+
+  chart2.yAxis.axisLabel('Income ($)').axisLabelDistance(1);
+  chart2.xAxis.axisLabel('Country').axisLabelDistance(1);
+
+  d3.select('#chart2 svg')
+      .datum(exampleData1())
+      .call(chart2)
+      .append("text")
+      .attr("x", 300)             
+      .attr("y", 10)
+      .attr("text-anchor", "middle")  
+      .text("GNI Per Capita Income in 2015");;
+  
+
+
+  nv.utils.windowResize(chart2.update);
+
+  return chart2;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData1() {
+ return  [ 
+    {
+      key: "Cumulative Return",
+      values: [
+        { 
+          "label" : "Malawi" ,
+          "value" : 350
+        } , 
+        { 
+          "label" : "China" , 
+          "value" : 7820
+        } , 
+        { 
+          "label" : "Luxembourg" , 
+          "value" : 77000
+        } , 
+        { 
+          "label" : "United States" , 
+          "value" : 54960
+        } ,
+        {
+          "label" : "Norway",
+          "value" : 93820
+        }
+      ]
+    }
+  ]
+
+}
+        </script>  
+        </div>
+
+
+	  </div>
+  </div>
+{% endblock %}
